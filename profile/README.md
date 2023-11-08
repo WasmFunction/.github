@@ -1,4 +1,6 @@
-## Hi there 👋
+## WasmFunctions 👋
+
+WasmFunctions is a Kubernetes-native serverless FaaS solution built on top of WebAssembly.
 
 <!--
 
