@@ -1,14 +1,25 @@
-## WasmFunctions 👋
+## WasmFunction 👋
 
-WasmFunctions is a Kubernetes-native serverless FaaS solution built on top of WebAssembly.
+WasmFunction is a Kubernetes-native serverless FaaS solution built on top of WebAssembly.
 
-<!--
+We focuses on:
 
-**Here are some ideas to get you started:**
+- Seamlessly using WebAssembly in Kubernetes like OCI Container
+- Reduce Kubernetes container cold start time
+- Build a WebAssembly-based FaaS platform on top of the optimized Kubernetes
 
-🙋‍♀️ A short introduction - what is your organization all about?
-🌈 Contribution guidelines - how can the community get involved?
-👩‍💻 Useful resources - where can the community find your docs? Is there anything else the community should know?
-🍿 Fun facts - what does your team eat for breakfast?
-🧙 Remember, you can do mighty things with the power of [Markdown](https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
--->
+Our solution aims to achieve comparable cold start performance without container pre-warming.
+
+### Contributing
+
+Out solution involves development and optimization of projects and applications at different levels.
+
+- [1999huye1104/wasm-faas](https://github.com/1999huye1104/wasm-faas). Made some extension and customization from [fission/fission](https://github.com/fission/fission), to manage WebAssembly functions.
+
+- [WasmFunction/k3s-k8s](https://github.com/WasmFunction/k3s-k8s). Made some optimization about timers and reduced cold start time.
+- [WasmFunction/containerd](https://github.com/WasmFunction/containerd). Made some optimization about pod sandbox and status reporting.
+- [WasmFunction/kuasar](https://github.com/WasmFunction/kuasar). Made some customization for wasm-sandboxer from  the [kuasar-io/kuasar](https://github.com/kuasar-io/kuasar), to use our external WebAssembly runtime instead.
+- [WasmFunction/rust-extensions](https://github.com/WasmFunction/rust-extensions). Stable dependency for [WasmFunction/kuasar](https://github.com/WasmFunction/kuasar). fixed and completed metric collecting.
+- [WasmFunction/wasmkeeper](https://github.com/WasmFunction/wasmkeeper). Customized WebAssembly runtime and also a HTTP server that serves WebAssembly function. Called by  [WasmFunction/kuasar](https://github.com/WasmFunction/kuasar) and runs as the container process.
+
+You can try it out by following steps from [K8s-files/how-to-setup.md](https://github.com/WasmFunction/K8s-files/blob/main/how-to-setup.md) to set up the environment.
