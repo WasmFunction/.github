@@ -25,3 +25,11 @@ Out solution involves development and optimization of projects and applications 
 - [WasmFunction/wasmkeeper](https://github.com/WasmFunction/wasmkeeper). Customized WebAssembly runtime and also a HTTP server that serves WebAssembly function. Called by  [WasmFunction/kuasar](https://github.com/WasmFunction/kuasar) and runs as the container process.
 
 You can try it out by following steps from [K8s-files/how-to-setup.md](https://github.com/WasmFunction/K8s-files/blob/main/how-to-setup.md) to set up the environment.
+
+### References
+
+* https://www.infracloud.io/serverless-functions-kubernetes/
+* https://knative.dev/docs/
+* https://openwhisk.apache.org/
+* https://www.openfaas.com/pricing/
+* https://cn.serverless.com/
