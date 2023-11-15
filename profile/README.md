@@ -2,7 +2,7 @@
 
 WasmFunction is a Kubernetes-native serverless FaaS solution built on top of WebAssembly.
 
-![WasmFunction Architecture](wasmfunction.png)
+![WasmFunction Architecture](https://github.com/WasmFunction/.github/blob/main/profile/wasmfunction.png?raw=true)
 
 We focuses on:
 
