@@ -100,7 +100,7 @@ Out solution involves development and optimization of projects and applications 
    curl -X POST -H "Content-Type: application/json" -d '{}' http://$FISSION_ROUTER/hello
    ```
 You should see the following output.
-![test result](https://github.com/WasmFunction/.github/blob/main/profile/wasmfunction.png?raw=true)
+![test result](https://github.com/WasmFunction/.github/blob/main/profile/test%20function.png?raw=true)
 
 4. You can check the corresponding resources created in Kubernetes for the two functions under the "fission-function" namespace, and you can also use Fission commands to view the created functions and triggers.
 
