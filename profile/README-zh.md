@@ -104,7 +104,7 @@ WasmFunction 是一个基于 WebAssembly 构建的 Kubernetes 原生无服务器
    curl -X POST -H "Content-Type: application/json" -d '{}' http://$FISSION_ROUTER/hello
    ```
 可以得到如下结果:
-![test result](https://github.com/WasmFunction/.github/blob/main/profile/wasmfunction.png?raw=true)
+![test result](https://github.com/WasmFunction/.github/blob/main/profile/test%20function.png?raw=true)
 
 4. 可以在 "fission-function"命名空间下查看两个函数在 kubernetes 中创建的对应资源，以及使用 fission 的命令查看已经创建的函数和触发器。
 
