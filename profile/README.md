@@ -32,18 +32,17 @@ Out solution involves development and optimization of projects and applications 
 1. First, download the installation package.
 
    ```bash
-   wget https://github.com/WasmFunction/WasmFunction/releases/download/v0.0.1/wasm-function.tar.gz
+   wget https://github.com/WasmFunction/WasmFunction/releases/download/v0.0.2/wasm-function.tar.gz
    ```
 
 2. Run the installation script.
 
    ``` bash
    source install.sh
-   # Note
-   During the installation of WasmEdge, the script temporarily sets the following environment variables to ensure library files load correctly:
+   # Note: During the installation of WasmEdge, the script temporarily sets the following environment variables to ensure library files load correctly:
    - `LD_LIBRARY_PATH`: `/usr/local/lib/`
    
-   If you want these environment variables to persist in future terminal sessions, you can add them to your `~/.bashrc` file as follows:
+   # If you want these environment variables to persist in future terminal sessions, you can add them to your `~/.bashrc` file as follows:
    ```bash
    echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
    source ~/.bashrc
@@ -53,12 +52,11 @@ Out solution involves development and optimization of projects and applications 
 
    ```bash
    source startup.sh
-   # Note
-   The following environment variables are set in this script, but are only effective in the current shell session:
+   # Note: The following environment variables are set in this script, but are only effective in the current shell session:
    - `FISSION_NAMESPACE`: Currently set to `fission`
    - `FISSION_ROUTER`: Currently set to `localhost:32046`
    
-   If you want these environment variables to persist across future sessions, you can add them to your `~/.bashrc` file as follows:
+   # If you want these environment variables to persist across future sessions, you can add them to your `~/.bashrc` file as follows:
    ```bash
    echo 'export FISSION_NAMESPACE=fission' >> ~/.bashrc
    echo 'export FISSION_ROUTER=localhost:32046' >> ~/.bashrc
@@ -80,19 +78,40 @@ Out solution involves development and optimization of projects and applications 
 
 1. Create the "sort" and "hello" functions (the functions should be packaged into images beforehand).
 
+   **Naming convention for WebAssembly environments: The environment names should follow the xx-wasm format.**
+   Reason: Due to the characteristics of the Kuasar wasm-sandboxer, functions are bound to their corresponding environments in a one-to-one relationship. For example, when using the default runtime, Fission provides general pods and specialized pods. For instance, when you create a Python environment, Fission creates a general pool of pods. When a Python function is triggered, Fission selects a pod from the pool that supports the Python environment and specializes it for running the function.
+However, to support efficient deployment and triggering of WebAssembly (Wasm) functions, we use Kuasar as the runtime. With Kuasar’s wasm-sandboxer feature, functions and environments are essentially fused into one entity. Hence, we adopt the xx-wasm naming convention to emphasize this uniqueness.
+   We support two ways to create Wasm environments:
+   - If the ```--image``` parameter specifies an image address, the environment container’s image is fetched from that address.
+   - If the ```--image``` parameter specifies a local .wasm file, Kaniko is used to package the local file into an image as the container’s source image.
+   - **Important Note: The Kaniko workspace is predefined as ```/var/lib/kaniko/workplace/```. The installation script automatically creates this directory. If the ```--image``` parameter specifies a local .wasm file, the file must exist in the ```/var/lib/kaniko/workplace/``` path; otherwise, the Kaniko pod will fail to build the image at the specified location.**
    ```bash
-   fission fn run-kuasar-wasm --name sort --image docker.io/amnesia1997/sortwasm --port 10086
-   fission fn run-kuasar-wasm --name hello --image docker.io/amnesia1997/hellowasm --port 10086
+   # If the --image parameter specifies an image address
+   fission env create --name sort-wasm --image docker.io/amnesia1997/sortwasm
+
+   # If the --image parameter specifies a local `.wasm` file
+   fission env create --name hello-wasm --image hello.wasm
    ```
 
-2. Create corresponding HTTP triggers.
+2. Create “sort” and “hello” Functions
+   Notes:
+   - The ```--code``` parameter is required as per the original Fission architecture.
+   - However, since we are offering a deployment and execution approach for Wasm functions using Kuasar, as mentioned earlier, the function and environment are effectively fused into a single entity. The function is packaged as part of the container image. Therefore, the ```--code``` parameter can point to an empty file or any file without impacting functionality. This will be optimized in the future.
+   ```bash
+   # If the --image parameter specifies an image address
+   fission env create --name sort-wasm --image docker.io/amnesia1997/sortwasm
 
+   # If the --image parameter specifies a local `.wasm` file
+   fission env create --name hello-wasm --image hello.wasm
+   ```
+   
+3. Create corresponding HTTP triggers.
    ```bash
    fission route create --url /sort --method POST --function sort
    fission route create --url /hello --method POST --function hello
    ```
 
-3. Trigger the functions using the following commands.
+4. Trigger the functions using the following commands.
 
    ```bash
    curl -X POST -H "Content-Type: application/json" -d '{"args":["1111", "2345", "8", "99", "11234", "12312", "1231231", "-10000"]}' http://$FISSION_ROUTER/sort
