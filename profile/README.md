@@ -99,11 +99,8 @@ However, to support efficient deployment and triggering of WebAssembly (Wasm) fu
    - The ```--code``` parameter is required as per the original Fission architecture.
    - However, since we are offering a deployment and execution approach for Wasm functions using Kuasar, as mentioned earlier, the function and environment are effectively fused into a single entity. The function is packaged as part of the container image. Therefore, the ```--code``` parameter can point to an empty file or any file without impacting functionality. This will be optimized in the future.
    ```bash
-   # If the --image parameter specifies an image address
-   fission env create --name sort-wasm --image docker.io/amnesia1997/sortwasm
-
-   # If the --image parameter specifies a local `.wasm` file
-   fission env create --name hello-wasm --image hello.wasm
+   fission fn create --name sort --env sort-wasm --code sort.wasm
+   fission fn create --name hello --env hello-wasm --code hello.wasm
    ```
    
 4. Create corresponding HTTP triggers.
