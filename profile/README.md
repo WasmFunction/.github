@@ -76,7 +76,7 @@ Out solution involves development and optimization of projects and applications 
 
 **Test Environment: Ubuntu 24.04 LTS**
 
-1. Create the "sort" and "hello" functions (the functions should be packaged into images beforehand).
+1. Create the "sort" and "hello" functions.
 
    **Naming convention for WebAssembly environments: The environment names should follow the xx-wasm format.**
    Reason: Due to the characteristics of the Kuasar wasm-sandboxer, functions are bound to their corresponding environments in a one-to-one relationship. For example, when using the default runtime, Fission provides general pods and specialized pods. For instance, when you create a Python environment, Fission creates a general pool of pods. When a Python function is triggered, Fission selects a pod from the pool that supports the Python environment and specializes it for running the function.
